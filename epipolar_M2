@@ -8,21 +8,21 @@ R = QQ[u_1..u_9,v_1..v_9];
 -------------------------
 -- Compute dot product of two lists of same length
 dot = (list1,list2,length) -> (
-      sum := 0;
-	    for i from 0 to (length-1) do sum = sum + (list1_i)*(list2_i);
-	    sum
-      )
+        sum := 0;
+        for i from 0 to (length-1) do sum = sum + (list1_i)*(list2_i);
+        sum
+        )
 
 -- Turn a list of length 9 into a 3x3 matrix K over ring R
 reshape3 = K -> (
-           substitute(matrix{{K_0,K_1,K_2},{K_3,K_4,K_5},
+        substitute(matrix{{K_0,K_1,K_2},{K_3,K_4,K_5},
 		          {K_6,K_7,K_8}},R)
-           )
+        )
 		   
 -- Check if some 2x2 minor of a 3x3 matrix is nonzero
 twoBytwo = K -> (
            twoMinor := minors(2,K);
-		       if twoMinor == 0 then false else true
+           if twoMinor == 0 then false else true
            )
 
 -- Extract the coefficients of a linear form and store in a list
@@ -33,15 +33,15 @@ extract = poly -> (
 		  
 -- Generate the matrix Z (m by 9) from Y,X (m by 2)
 genZ = (Y,X,m) -> (
-       ones := map(QQ^m,QQ^1,(i,j)->1);
-	     X = X | ones;
-	     X = transpose X;
-	     Y = Y | ones;
-	     Y = transpose Y;
-	     Z = transpose(submatrix(Y,{0})**submatrix(X,{0}));
-	     for i from 1 to (m-1) do Z = Z || transpose(submatrix(Y,{i})**submatrix(X,{i}));
-       Z
-		   )
+        ones := map(QQ^m,QQ^1,(i,j)->1);
+        X = X | ones;
+        X = transpose X;
+        Y = Y | ones;
+        Y = transpose Y;
+	Z = transpose(submatrix(Y,{0})**submatrix(X,{0}));
+	for i from 1 to (m-1) do Z = Z || transpose(submatrix(Y,{i})**submatrix(X,{i}));
+        Z
+        )
 		
 -- Convert a basis vector of kernel(Matrix) into a list
 -- this basis vector must have length 9
