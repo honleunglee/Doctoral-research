@@ -52,58 +52,58 @@ conKer = basis -> (
 -- Parametrize the kernel(Matrix) given the basis vectors of the kernel 
 -- the nullity
 parKer = (KKK,nul) -> (
-	       N1 := reshape3(conKer(KKK_0));
+	 N1 := reshape3(conKer(KKK_0));
          if nul == 1 then M1 := u_1*N1
          else if nul == 2 then (
             N22 := reshape3(conKer(KKK_1));
             M2 := u_1*N1 + u_2*N22
-         )		  
+        )		  
          else if nul == 3 then (
             N32 := reshape3(conKer(KKK_1));
             N33 := reshape3(conKer(KKK_2));   
             M3 := u_1*N1 + u_2*N32 + u_3*N33
-		     )
+		)
          else if nul == 4 then (
             N42 := reshape3(conKer(KKK_1));
             N43 := reshape3(conKer(KKK_2)); 
-		        N44 := reshape3(conKer(KKK_3));
+	    	N44 := reshape3(conKer(KKK_3));
             M4 := u_1*N1 + u_2*N42 + u_3*N43 + u_4*N44
-         )		  
+        )		  
          else if nul == 5 then (
             N52 := reshape3(conKer(KKK_1));
             N53 := reshape3(conKer(KKK_2)); 
-		        N54 := reshape3(conKer(KKK_3));
-		        N55 := reshape3(conKer(KKK_4));
+	    	N54 := reshape3(conKer(KKK_3));
+	    	N55 := reshape3(conKer(KKK_4));
             M5 := u_1*N1 + u_2*N52 + u_3*N53 + u_4*N54 + u_5*N55
-		     )
+        )
          else if nul == 6 then (
             N62 := reshape3(conKer(KKK_1));
             N63 := reshape3(conKer(KKK_2)); 
-		        N64 := reshape3(conKer(KKK_3));
-		        N65 := reshape3(conKer(KKK_4));
-		        N66 := reshape3(conKer(KKK_5));
-            M6 := u_1*N1 + u_2*N62 + u_3*N63 + u_4*N64 + u_5*N65 + u_6*N66
-		     )
+	    	N64 := reshape3(conKer(KKK_3));
+	    	N65 := reshape3(conKer(KKK_4));
+	    	N66 := reshape3(conKer(KKK_5));
+          M6 := u_1*N1 + u_2*N62 + u_3*N63 + u_4*N64 + u_5*N65 + u_6*N66
+		)
          else if nul == 7 then (
             N72 := reshape3(conKer(KKK_1));
             N73 := reshape3(conKer(KKK_2)); 
-		        N74 := reshape3(conKer(KKK_3));
-		        N75 := reshape3(conKer(KKK_4));
-		        N76 := reshape3(conKer(KKK_5));
-		        N77 := reshape3(conKer(KKK_6));
+	    	N74 := reshape3(conKer(KKK_3));
+            N75 := reshape3(conKer(KKK_4));
+	    	N76 := reshape3(conKer(KKK_5));
+	    	N77 := reshape3(conKer(KKK_6));
             M7 := u_1*N1 + u_2*N72 + u_3*N73 + u_4*N74 + u_5*N75 + u_6*N76 + u_7*N77
-		     )
+		)
          else (
             N82 := reshape3(conKer(KKK_1));
             N83 := reshape3(conKer(KKK_2)); 
-		        N84 := reshape3(conKer(KKK_3));
-		        N85 := reshape3(conKer(KKK_4));
-		        N86 := reshape3(conKer(KKK_5));
-		        N87 := reshape3(conKer(KKK_6));
-		        N88 := reshape3(conKer(KKK_7));
+	    	N84 := reshape3(conKer(KKK_3));
+	        N85 := reshape3(conKer(KKK_4));
+	        N86 := reshape3(conKer(KKK_5));
+	    	N87 := reshape3(conKer(KKK_6));
+	    	N88 := reshape3(conKer(KKK_7));
             M8 := u_1*N1 + u_2*N82 + u_3*N83 + u_4*N84 + u_5*N85 + u_6*N86 + u_7*N87 + u_8*N88
-		     )
-         )
+		)
+        )
 		  
 --------------------
 -- Main Algorithm --
@@ -116,20 +116,20 @@ parKer = (KKK,nul) -> (
 -- False if not.
 
 main = (Y,X,m) -> (
-       Zmatrix := genZ(Y,X,m);
-	     kernelOfZ := ker Zmatrix;
-	     rankz := rank Zmatrix;
-	     nullz := 9 - rankz;
-       pm := parKer(kernelOfZ,nullz); 
-	     p := det(pm);
+       	Zmatrix := genZ(Y,X,m);
+	    kernelOfZ := ker Zmatrix;
+	    rankz := rank Zmatrix;
+	    nullz := 9 - rankz;
+      	pm := parKer(kernelOfZ,nullz); 
+	    p := det(pm);
     
-       << "Rank of Z is: " << rankz << "\n";
-	     << "Determinant of M(u) is: \n" << toString p << "\n";
+       	<< "Rank of Z is: " << rankz << "\n";
+	    << "Determinant of M(u) is: \n" << toString p << "\n";
 	   
-	     if p == 0 then twoBytwo(pm) else (
+	    if p == 0 then twoBytwo(pm) else (
             try (
                 factorP := factor p;
-			        	pp := factorP#0#0;
+				pp := factorP#0#0;
                 if pp^3 == p then (
                    b := extract(pp);
                    vVec := {v_1,v_2,v_3,v_4,v_5,v_6,v_7,v_8,v_9};
@@ -139,12 +139,12 @@ main = (Y,X,m) -> (
                    for i from 0 to 8 do term = append(term,vVec_i - (thing2/thing1)*b_i);
                    newM := sub(pm,{u_1=>term_0,u_2=>term_1,u_3=>term_2,u_4=>term_3,u_5=>term_4,u_6=>term_5,u_7=>term_6,u_8=>term_7,u_9=>term_8});
                    twoBytwo(newM)
-				        )
+					)
                 else true
-				    )
+					)
             else true
-	     )
-       )
+	    )
+       	)
 
 
 	   
